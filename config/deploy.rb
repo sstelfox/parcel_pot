@@ -1,4 +1,6 @@
 
+require 'bundler/capistrano'
+
 set :application, 'parcel_pot'
 set :repo_url,    'git@github.com:sstelfox/parcel_pot.git'
 
@@ -9,14 +11,6 @@ set :branch, 'master'
 
 set :deploy_to, "/var/www/#{fetch(:application)}"
 set :scm, :git
-
-# Create binstubs when bundling
-set :bundle_flags, "--deployment --quiet --binstubs"
-
-# Use the binstub rather than the system bundler
-set :bundle_cmd, "#{release_path}/bin/bundle"
-
-set :rake, "bundle exec rake"
 
 # set :format, :pretty
 # set :log_level, :debug
