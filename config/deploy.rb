@@ -8,7 +8,9 @@ set :branch, 'master'
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
 set :deploy_to, "/var/www/#{fetch(:application)}"
+set :deploy_via, :remote_cache
 set :scm, :git
+set :branch, "#{fetch(:stage)}"
 
 # set :format, :pretty
 # set :log_level, :debug
