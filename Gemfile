@@ -21,7 +21,10 @@ gem 'maildir'
 gem 'mail'
 
 group :development do
-  gem 'capistrano'
+  gem 'capistrano', '~> 3.0.0'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+
   gem 'sqlite3'
 end
 
