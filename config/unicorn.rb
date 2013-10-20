@@ -7,6 +7,7 @@ worker_processes 4
  
 # Preload the application too speed up forking and optimize memory usage.
 preload_app true
+GC.respond_to?(:copy_on_write_friendly=) && GC.copy_on_write_friendly = true
  
 # Lower the timeout, 10 seconds is far too long as it is
 timeout 10
@@ -20,6 +21,12 @@ pid APP_ROOT + "/tmp/pids/unicorn.pid"
 # Setup some local logging
 stderr_path APP_ROOT + "/log/unicorn.stderr.log"
 stdout_path APP_ROOT + "/log/unicorn.stdout.log"
+
+# Force the bundler gemfile environment variable to reference the Сapistrano
+# "current" symlink
+before_exec do |_|
+  ENV["BUNDLE_GEMFILE"] = File.join(APP_ROOT, 'Gemfile')
+end
  
 before_fork do |server, worker|
   Signal.trap('TERM') do
