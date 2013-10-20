@@ -13,6 +13,9 @@ set :scm, :git
 # Create binstubs when bundling
 set :bundle_flags, "--deployment --quiet --binstubs"
 
+# Use the binstub rather than the system bundler
+set :bundle_cmd, "#{release_path}/bin/bundle" }
+
 # set :format, :pretty
 # set :log_level, :debug
 # set :pty, true
