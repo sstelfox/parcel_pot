@@ -1,5 +1,6 @@
 
 set :stage, :staging
+set :branch, fetch(:stage)
 
 server '192.168.122.40', {
   user: 'deploy',
