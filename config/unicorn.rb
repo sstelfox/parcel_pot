@@ -22,12 +22,21 @@ stderr_path APP_ROOT + "/log/unicorn.stderr.log"
 stdout_path APP_ROOT + "/log/unicorn.stdout.log"
  
 before_fork do |server, worker|
+  Signal.trap('TERM') do
+    puts "Unicorn master intercepting TERM and sending myself QUIT instead"
+    Process.kill('QUIT', Process.pid)
+  end
+
   # Disconnect from our database, when we fork there would be race conditions
   # and all kinds of messy shared sockets if this didn't happen.
   defined?(ActiveRecord::Base) && ActiveRecord::Base.connection.disconnect!
 end
  
 after_fork do |server, worker|
+  Signal.trap('TERM') do
+    puts 'Unicorn worker intercepting TERM and doing nothing. Wait for master to sent QUIT'
+  end
+
   # Setup our database connections again
   defined?(ActiveRecord::Base) && ActiveRecord::Base.establish_connection
  

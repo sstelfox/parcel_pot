@@ -15,6 +15,10 @@ gem 'turbolinks'
 #gem 'bcrypt-ruby', '~> 3.0.0'
 
 gem 'unicorn'
+gem 'foreman'
+
+gem 'maildir'
+gem 'mail'
 
 group :development do
   gem 'capistrano'
