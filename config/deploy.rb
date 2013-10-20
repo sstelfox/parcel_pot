@@ -1,6 +1,4 @@
 
-require 'bundler/capistrano'
-
 set :application, 'parcel_pot'
 set :repo_url,    'git@github.com:sstelfox/parcel_pot.git'
 
