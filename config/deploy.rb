@@ -10,6 +10,9 @@ set :branch, 'master'
 set :deploy_to, "/var/www/#{fetch(:application)}"
 set :scm, :git
 
+# Create binstubs when bundling
+set :bundle_flags, "--deployment --quiet --binstubs"
+
 # set :format, :pretty
 # set :log_level, :debug
 # set :pty, true
