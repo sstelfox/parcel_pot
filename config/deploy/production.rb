@@ -4,7 +4,7 @@ set :rails_env, :production
 set :branch, fetch(:stage)
 
 server '192.168.122.50', {
-  user: 'deploy',
+  user: fetch(:user),
   roles: %w(web app db),
   ssh_options: {
     keys: %w(~/.ssh/id_rsa),    # Keeping it in as I will want to change this later

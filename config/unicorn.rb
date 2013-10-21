@@ -47,6 +47,7 @@ after_fork do |server, worker|
 
   # Setup our database connections again
   defined?(ActiveRecord::Base) && ActiveRecord::Base.establish_connection
+  defined?(ActiveRecord::Base) && ActiveRecord::Base.verify_active_connections!
  
   # Record chlid process PIDs
   worker_pid_file = server.config[:pid].sub('.pid', ".#{worker.nr}.pid")

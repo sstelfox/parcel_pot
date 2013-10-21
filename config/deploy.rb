@@ -1,15 +1,16 @@
 
 set :application, 'parcel_pot'
 set :repo_url,    'git@github.com:sstelfox/parcel_pot.git'
+set :user,        'deploy'
 
 # This should eventually be set by the environment
 set :branch, 'master'
+set :scm, :git
+set :deploy_via, :remote_cache
 
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
-set :deploy_to, "/var/www/#{fetch(:application)}"
-set :deploy_via, :remote_cache
-set :scm, :git
+set :deploy_to, "/home/#{fetch(:user)}/#{fetch(:application)}"
 
 # set :format, :pretty
 # set :log_level, :debug
@@ -30,6 +31,12 @@ namespace :deploy do
     end
   end
 
+  task :export_systemd do
+    on roles(:app) do
+      sudo "#{release_path.join('bin/foreman')} export systemd /usr/lib/systemd/system -f #{release_path.join('Procfile')} -a parcel_pot -u deploy"
+    end
+  end
+
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
@@ -40,6 +47,7 @@ namespace :deploy do
   end
 
   after :finishing, 'deploy:cleanup'
+  after :updated, 'deploy:export_systemd'
 end
 
-# bundle exec 'foreman export systemd /usr/lib/systemd/system -a parcel_pot -u deploy'
+
