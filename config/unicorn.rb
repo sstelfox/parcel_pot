@@ -1,27 +1,27 @@
 
 # Configure the working directories root
 APP_ROOT = File.expand_path(File.dirname(File.dirname(__FILE__)))
-working_directory = APP_ROOT
- 
-worker_processes 4
+
+working_directory(APP_ROOT)
+worker_processes(4)
  
 # Preload the application too speed up forking and optimize memory usage.
-preload_app true
+preload_app(true)
 GC.respond_to?(:copy_on_write_friendly=) && GC.copy_on_write_friendly = true
  
 # Lower the timeout, 10 seconds is far too long as it is
-timeout 10
+timeout(10)
  
 # Use a local socket for the connections (to be proxied to by nginx)
-#listen APP_ROOT + "/tmp/sockets/unicorn.sock", :backlog => 64
-listen '127.0.0.1'
+listen APP_ROOT + "/tmp/sockets/unicorn.sock", :backlog => 64
+#listen('127.0.0.1')
 
 # The location of the master pid file
-pid APP_ROOT + "/tmp/pids/unicorn.pid"
+pid(APP_ROOT + "/tmp/pids/unicorn.pid")
  
 # Setup some local logging
-stderr_path APP_ROOT + "/log/unicorn.stderr.log"
-stdout_path APP_ROOT + "/log/unicorn.stdout.log"
+stderr_path(APP_ROOT + "/log/unicorn.stderr.log")
+stdout_path(APP_ROOT + "/log/unicorn.stdout.log")
 
 # Force the bundler gemfile environment variable to reference the Сapistrano
 # "current" symlink
