@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/phemmer/foreman.git
+  revision: bc282ca068a8c82516250783679aac3ed6cee7a5
+  branch: systemd-dependencies
+  specs:
+    foreman (0.63.0)
+      dotenv (>= 0.7)
+      thor (>= 0.13.6)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -53,9 +62,6 @@ GEM
     dotenv (0.9.0)
     erubis (2.7.0)
     execjs (2.0.2)
-    foreman (0.63.0)
-      dotenv (>= 0.7)
-      thor (>= 0.13.6)
     hike (1.2.3)
     i18n (0.6.5)
     jquery-rails (3.0.4)
@@ -140,7 +146,7 @@ DEPENDENCIES
   capistrano-bundler
   capistrano-rails
   debugger
-  foreman
+  foreman!
   jquery-rails
   json
   mail

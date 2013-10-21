@@ -17,7 +17,7 @@ gem 'turbolinks'
 #gem 'bcrypt-ruby', '~> 3.0.0'
 
 gem 'unicorn'
-gem 'foreman'
+gem 'foreman', git: 'https://github.com/phemmer/foreman.git', branch: 'systemd-dependencies'
 
 gem 'maildir'
 gem 'mail'
