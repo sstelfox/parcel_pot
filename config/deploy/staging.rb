@@ -1,6 +1,6 @@
 
 set :stage, :staging
-set :rails_env, :staging
+#set :rails_env, :staging
 set :branch, fetch(:stage)
 
 server '192.168.122.40', {
