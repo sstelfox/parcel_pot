@@ -21,6 +21,7 @@ gem 'maildir'
 gem 'mail'
 
 gem 'sqlite3'
+gem 'json'
 
 group :development do
   gem 'capistrano', '~> 3.0.0'
