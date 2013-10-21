@@ -51,6 +51,6 @@ after_fork do |server, worker|
   # Record chlid process PIDs
   worker_pid_file = server.config[:pid].sub('.pid', ".#{worker.nr}.pid")
   File.open(worker_pid_file, 'w') { |f| f.write(Process.pid) }
-  system("echo #{Process.pid} > #{child_pid}")
+  system("echo #{Process.pid} > #{worker_pid_file}")
 end
 

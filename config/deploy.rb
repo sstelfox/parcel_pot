@@ -42,3 +42,4 @@ namespace :deploy do
   after :finishing, 'deploy:cleanup'
 end
 
+# bundle exec 'foreman export systemd /usr/lib/systemd/system -a parcel_pot -u deploy'
