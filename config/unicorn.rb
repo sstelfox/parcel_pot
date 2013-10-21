@@ -1,7 +1,7 @@
 
 # Configure the working directories root
 APP_ROOT = File.expand_path(File.dirname(File.dirname(__FILE__)))
-working_directory APP_ROOT
+working_directory = APP_ROOT
  
 worker_processes 4
  
