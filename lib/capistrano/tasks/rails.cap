@@ -1,34 +1,20 @@
-
-#after 'deploy:update_code', 'deploy:symlink_shared'
-#before 'deploy:db:symlink_db', 'deploy:setup_config'
-#after 'deploy:symlink_shared', 'deploy:db:symlink_db'
- 
-# helper method to determine if a remote_file exists on record
-def remote_file_exists?(full_path)
-  'true' == capture("if [ -e #{full_path} ]; then echo 'true'; fi").strip
-end
  
 namespace :deploy do
-  task :setup_config do
-    run "mkdir -p #{deploy_to}/shared/{config,log}"
- 
-    unless remote_file_exists?("#{deploy_to}/shared/config/database.yml")
-      run "cd #{current_release}; cp -u #{current_release}/config/database.yml.example #{deploy_to}/shared/config/database.yml"
+  task "create_db_file" do
+    on roles(:app) do
+      execute :mkdir, '-pv', shared_path.join('{config,log}')
+      execute :cp, '-u', latest_path.join('config/database.yml.example'),
+        shared_path.join('config/database.yml')
     end
   end
  
   namespace :db do
-    desc "Symlinks the database.yml"
-    task :symlink_db do
-      run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-    end
-
     desc "Destructively reset the database"
     task :reset do
-      run "cd #{current_release}; bundle exec rake db:drop RAILS_ENV=#{fetch(:stage)}"
-      run "cd #{current_release}; bundle exec rake db:create RAILS_ENV=#{fetch(:stage)}"
-      run "cd #{current_release}; bundle exec rake db:migrate RAILS_ENV=#{fetch(:stage)}"
-      run "cd #{current_release}; bundle exec rake db:seed RAILS_ENV=#{fetch(:stage)}"
+      execute "bundle exec rake db:drop RAILS_ENV=#{fetch(:stage)}"
+      execute "bundle exec rake db:create RAILS_ENV=#{fetch(:stage)}"
+      execute "bundle exec rake db:migrate RAILS_ENV=#{fetch(:stage)}"
+      execute "bundle exec rake db:seed RAILS_ENV=#{fetch(:stage)}"
     end
   end
 end
@@ -49,4 +35,6 @@ namespace :rails do
     end
   end
 end
+
+before "deploy:check:linked_files", "deploy:create_db_file"
 
