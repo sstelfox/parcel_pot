@@ -20,12 +20,12 @@ gem 'foreman'
 gem 'maildir'
 gem 'mail'
 
+gem 'sqlite3'
+
 group :development do
   gem 'capistrano', '~> 3.0.0'
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
-
-  gem 'sqlite3'
 end
 
 group :development, :test do
