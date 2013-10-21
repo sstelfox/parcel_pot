@@ -23,7 +23,7 @@ gem 'mail'
 group :development do
   gem 'capistrano', '~> 3.0.0'
   gem 'capistrano-bundler'
-  gem 'capistrano-rails', git: 'https://github.com/sstelfox/capistrano-rails.git'
+  gem 'capistrano-rails'
 
   gem 'sqlite3'
 end
