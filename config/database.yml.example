@@ -1,18 +1,26 @@
-base: &base
+sqlite: &sqlite
   adapter: sqlite3
   pool: 5
   timeout: 5000
 
+postgres: &:postgres
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  #database: db_name
+  #username: user
+  #password: password
+
 test:
-  <<: *base
+  <<: *sqlite
   database: db/test.sqlite3
 
 development:
-  <<: *base
+  <<: *sqlite
   database: db/development.sqlite3
 
 production: &production
-  <<: *base
+  <<: *sqlite
   database: db/production.sqlite3
 
 staging:
