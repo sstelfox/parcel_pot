@@ -13,7 +13,8 @@ GC.respond_to?(:copy_on_write_friendly=) && GC.copy_on_write_friendly = true
 timeout 10
  
 # Use a local socket for the connections (to be proxied to by nginx)
-listen APP_ROOT + "/tmp/sockets/unicorn.sock", :backlog => 64
+#listen APP_ROOT + "/tmp/sockets/unicorn.sock", :backlog => 64
+listen '127.0.0.1'
 
 # The location of the master pid file
 pid APP_ROOT + "/tmp/pids/unicorn.pid"
