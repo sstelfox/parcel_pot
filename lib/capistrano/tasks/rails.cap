@@ -3,8 +3,9 @@ namespace :deploy do
   task "create_db_file" do
     on roles(:app) do
       execute :mkdir, '-pv', shared_path.join('{config,log}')
-      execute :cp, '-u', latest_path.join('config/database.yml.example'),
-        shared_path.join('config/database.yml')
+      unless test("[ -f #{shared_path.join('config/database.yml')} ]")
+        upload!('config/database.yml.example', shared_path.join('config/database.yml'))
+      end
     end
   end
  

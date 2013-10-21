@@ -16,7 +16,7 @@ set :scm, :git
 # set :pty, true
 
 set :linked_files, %w{ config/database.yml }
-set :linked_dirs, %w{ log tmp/pids tmp/cache tmp/sockets }
+set :linked_dirs, %w{ db log tmp/pids tmp/cache tmp/sockets }
 
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 set :keep_releases, 5
