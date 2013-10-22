@@ -13,7 +13,7 @@ set :deploy_via, :remote_cache
 set :deploy_to, "/home/#{fetch(:user)}/#{fetch(:application)}"
 
 # set :format, :pretty
-# set :log_level, :debug
+set :log_level, :info
 # set :pty, true
 
 set :linked_files, %w{ config/database.yml }
@@ -33,7 +33,13 @@ namespace :deploy do
 
   task :export_systemd do
     on roles(:app) do
-      sudo "#{release_path.join('bin/foreman')} export systemd /usr/lib/systemd/system -f #{release_path.join('Procfile')} -a parcel_pot -u deploy"
+      sudo "#{deploy_path.join('current/bin/foreman')} export systemd /usr/lib/systemd/system -f #{release_path.join('Procfile')} -a parcel_pot -u deploy"
+    end
+  end
+
+  task :enable_service do
+    on roles(:app) do
+      sudo :systemctl, "enable #{fetch(:application)}.target"
     end
   end
 
@@ -46,8 +52,9 @@ namespace :deploy do
     end
   end
 
-  after :finishing, 'deploy:cleanup'
-  after :updated, 'deploy:export_systemd'
+  after 'deploy:finishing', 'deploy:cleanup'
 end
 
+after 'deploy:updated', 'deploy:export_systemd'
+after 'deploy:export_systemd', 'deploy:enable_service'
 

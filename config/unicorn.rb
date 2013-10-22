@@ -13,7 +13,7 @@ GC.respond_to?(:copy_on_write_friendly=) && GC.copy_on_write_friendly = true
 timeout(10)
  
 # Use a local socket for the connections (to be proxied to by nginx)
-listen APP_ROOT + "/tmp/sockets/unicorn.sock", :backlog => 64
+#listen APP_ROOT + "/tmp/sockets/unicorn.sock", :backlog => 64
 #listen('127.0.0.1')
 
 # The location of the master pid file
@@ -52,6 +52,5 @@ after_fork do |server, worker|
   # Record chlid process PIDs
   worker_pid_file = server.config[:pid].sub('.pid', ".#{worker.nr}.pid")
   File.open(worker_pid_file, 'w') { |f| f.write(Process.pid) }
-  system("echo #{Process.pid} > #{worker_pid_file}")
 end
 
