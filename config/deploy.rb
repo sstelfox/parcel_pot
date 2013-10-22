@@ -40,6 +40,7 @@ namespace :deploy do
   task :enable_service do
     on roles(:app) do
       sudo :systemctl, "enable #{fetch(:application)}.target"
+      sudo :systemctl, "--system daemon-reload"
     end
   end
 
