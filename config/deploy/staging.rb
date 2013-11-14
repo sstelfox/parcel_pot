@@ -3,7 +3,8 @@ set :stage, :staging
 set :rails_env, :staging
 set :branch, fetch(:stage)
 
-server '192.168.122.40', {
+server '192.168.122.10', {
+  port: 2222,
   user: fetch(:user),
   roles: %w(web app db),
   ssh_options: {

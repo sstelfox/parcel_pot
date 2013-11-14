@@ -1,7 +1,7 @@
 
 set :application, 'parcel_pot'
 set :repo_url,    'git@github.com:sstelfox/parcel_pot.git'
-set :user,        'deploy'
+set :user,        'deployer'
 
 # This should eventually be set by the environment
 set :branch, 'master'
@@ -13,7 +13,7 @@ set :deploy_via, :remote_cache
 set :deploy_to, "/home/#{fetch(:user)}/#{fetch(:application)}"
 
 # set :format, :pretty
-set :log_level, :info
+set :log_level, :debug
 # set :pty, true
 
 set :linked_files, %w{ config/database.yml }
@@ -27,7 +27,7 @@ namespace :deploy do
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
-      # execute :touch, release_path.join('tmp/restart.txt')
+      execute :touch, release_path.join('tmp/restart.txt')
     end
   end
 
@@ -56,6 +56,6 @@ namespace :deploy do
   after 'deploy:finishing', 'deploy:cleanup'
 end
 
-after 'deploy:updated', 'deploy:export_systemd'
-after 'deploy:export_systemd', 'deploy:enable_service'
+#after 'deploy:updated', 'deploy:export_systemd'
+#after 'deploy:export_systemd', 'deploy:enable_service'
 
