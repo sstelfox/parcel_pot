@@ -4,7 +4,7 @@ pid_file = "#{app_root}/tmp/pids/unicorn.pid"
 God::Contacts::Email.defaults do |d|
   d.from_email = "god@internal.tld"
   d.from_name = "God"
-  d.delivery_method = "sendmail"
+  d.delivery_method = :sendmail
 end
 
 God.contact :email do |c|
