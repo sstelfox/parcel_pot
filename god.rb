@@ -93,8 +93,7 @@ God.watch do |w|
       c.notify = 'developers'
     end
 
-    restart.condition(:restart_file_touched) do |c|
-      c.interval = 5.seconds
+    restart.condition(:file_touched) do |c|
       c.restart_file = "#{app_root}/tmp/restart.txt"
     end
   end
