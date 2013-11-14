@@ -94,7 +94,7 @@ God.watch do |w|
     end
 
     restart.condition(:file_touched) do |c|
-      c.restart_file = "#{app_root}/tmp/restart.txt"
+      c.path = "#{app_root}/tmp/restart.txt"
     end
   end
 
