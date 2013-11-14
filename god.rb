@@ -20,7 +20,7 @@ God.watch do |w|
 
   # not sure the production is necessary here if we're setting an environment
   # variable...
-  w.start = "unicorn -c #{app_root}/config/unicorn.rb -E production -D"
+  w.start = "bundle exec unicorn -c #{app_root}/config/unicorn.rb -E production -D"
   w.stop = "kill -QUIT `cat #{pid_file}`"
   w.restart = "kill -USR2 `cat #{pid_file}`" # hot deploy
 
